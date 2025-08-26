@@ -1,67 +1,94 @@
-\chapter{How to use the template} \label{ch-2}
+\chapter{How to Use the Template} \label{ch-2}
 
-This is a practical guide into how to use this template, by explaining the role of the different folders and files.
+This is a practical guide into how to use this template, by explaining the role
+of the different folders and files. The basic structure of this folder should
+look like:
+\texttt{
+\\
+|--- Thesis\_proposal.tex \\ 
+|--- Images/ \\ 
+|--- MainText/ \\ 
+\hspace*{0.5cm}|--- chapter1.tex\\
+\hspace*{0.5cm}|--- chapter2.tex\\
+\hspace*{0.5cm}|--- chapter3.tex\\
+|--- Preamble/ \\ 
+\hspace*{0.5cm}|--- mydefinitions.tex\\
+\hspace*{0.5cm}|--- abstract.tex\\
+\hspace*{0.5cm}|--- physics\_bibstyle.bst\\
+\hspace*{0.5cm}|--- Thesis\_bibliography.bib\\
+}
 
-If some practices seem like overkill for a 20 page proposal (splitting the content across different files), that is because it probably is, but we built it this way because the PhD thesis template is structured identically. That means that you will be able to incorporate this document into your thesis seamlessly.
+If some practices seem like overkill for a 20 page proposal (splitting the
+content across different files), that is because it probably is, but we built
+it this way because the PhD thesis template is structured identically. That
+means that you will be able to incorporate this document into your thesis seamlessly.
 
-\section{Folders}
+\section{The \texttt{Preamble} Folder}
 
-The main folder contains three folders detailed here:
+You should edit the basic information about the thesis proposal
+which can be found in the file \texttt{Preamble/mydefinitions.tex}. This includes
+your name, the name of supervisor (and co-supervisor, if applicable) your title, 
+and the date.
 
+This file also contains the bibliography settings, custom packages, and any custom
+commands that you many want to use. The default bibliography style is defined in
+\texttt{Preamble/physics\_bibstyle.bst}, which was created by Jeremie Gillet in 2011
+for his thesis. Feel free to swap this file out with a style more suited to your
+field, and be sure to change the file name in \texttt{Preamble/mydefinitions.tex}
+(line 19). By default, the bibliography file containing
+your references is \texttt{Preamble/Thesis\_bibliography.bib}, so you should
+replace this file with your own version. If you'd like to store your bibliography
+information somewhere else (for example, if you have one master file for all of your
+LaTeX projects) you can edit the appropriate section in \texttt{Thesis\_proposal.tex}
+(should be around line 140).
+
+You should write your abstract in the file \texttt{Preamble/abstract.tex}. This
+should not be longer than a single page.
+
+\section{The \texttt{MainText} Folder}
+
+For the thesis proposal, the main text should be split across three chapters:
+the introduction and literature review, the research plan, and the progress report.
+Each of these chapters should be written in a standalone file located in
+the \texttt{MainText} folder, for example:
+\texttt{
+\\
+|--- MainText/ \\ 
+\hspace*{0.5cm}|--- chapter1.tex\\
+\hspace*{0.5cm}|--- chapter2.tex\\
+\hspace*{0.5cm}|--- chapter3.tex\\
+}
+If you'd like to rename or add new files, make sure to change where they are
+referenced in \texttt{Thesis\_proposal.tex} (around line 125). If you wanted
+to add an appendix, you would create a new file in \texttt{MainText/}, though
+add them to \texttt{Thesis\_proposal.tex} around line 150 instead.
+Your thesis may have several other chapters here, for example, Conclusions.
+
+\section{The \texttt{Images} Folder}
+
+All the images that you will use in your thesis should be placed in the \texttt{Images}
+folder. This can contain subfolders, for example one for each chapter. To include
+an image from the main text, use something like
+\texttt{\textbackslash includegraphics\{subfolder/image.jpg\}}; no need to
+worry about the path to the \texttt{Images} folder.
+
+\section{The \texttt{Thesis\_proposal.tex} File}
+
+This is the main TeX file that takes input from all of the previously discussed
+files in the \texttt{Preamble} and \texttt{MainText} folders. To generate your
+document, this is the file you should compile. Compile once with \LaTeX,
+once with BibTeX and finally twice more with \LaTeX\ to get all the references right.
+
+You probably won't need to edit this file very much, but in case you are
+looking for a specific setting or something, the following settings are
+defined in this file:
 \begin{itemize}
-
-\item \textbf{Images.} This folder should contain all the images that you will use in your thesis. It can contain subfolders, for example one for each chapter. To include an image from the main text, use something like \texttt{\textbackslash includegraphics\{subfolder/image.jpg\} } without worrying about the path to the \texttt{Images} folder.
-
-\item \textbf{MainText.} This folder contains a series of \LaTeX\ files that form the main text: chapters and appendices. The PhD thesis template also has Introduction and Conclusion, here you can include them in the chapters.
-
-\item \textbf{Preamble.} This folder contains a series of \LaTeX\ files with the pages that will appear before the main text. Please write (or copy and paste) your own text in those files and delete the dummy text when appropriate. The files are:
-\begin{itemize}
-\item \texttt{abstract.tex} --- Abstract. Follow directions in the file.
-\item \texttt{mydefinitions.tex} --- \textbf{Important} --- This file should contain all the values relevant for the title page (name, thesis title, etc, which will be used automatically in the title and various preamble files), your bibliography style, all packages you need for your thesis and your custom definition and commands. Be careful of not importing a package that has already been imported in \texttt{xxx\_Thesis.tex}, and be aware that some packages might interfere with each other.
-\item \texttt{physics\_bibstyle.bst} --- Bibliography style file modified by Jeremie Gillet in 2011 to suit his thesis. Might be suitable for physics. If you want to use another custom bibliography style, include the file in this folder.
-\item \texttt{Thesis\_bibliography.bib} --- BibTeX file containing your bibliography.
+    \item Basic packages
+    \item Loading of in custom values from \texttt{Preamble/mydefinitions.tex}
+    \item Title page
+    \item Headers and footers
+    \item Table of Contents
+    \item Thesis main text import
+    \item Bibliography file (not style)
+    \item Appendices
 \end{itemize}
-
-The PhD thesis template includes several other files, such as Acknowledgments or Glossary.  
-
-\end{itemize}
-
-\section{\texttt{Thesis\_proposal.tex}}
-
-This is the main files, the only one that need to be compiled to build the document. Compile once with \LaTeX, once with BibTeX and finally twice with \LaTeX\ to get all the references right.
-
-Let's go through each section and comment them briefly. The last section will emphasize the differences between the two files.
-
-\subsection{PACKAGES AND OTHER DOCUMENT CONFIGURATIONS}
-
-This section contains the minimum number of packages and definitions to compile the thesis. No line should be removed or modified.
-
-\subsection{ADD YOUR CUSTOM VALUES, COMMANDS AND PACKAGES}
-
-This section should not be modified directly. Instead, your packages and definitions should be included in  \texttt{Preamble/mydefinitions.tex}.
-
-\subsection{TITLE PAGE}
-
-Creates the title page. Do not modify.
-
-\subsection{PREAMBLE PAGES}
-
-Structures the style (header) for the preamble pages and builds them. Do not modify.
-
-\subsection{LIST OF CONTENTS/FIGURES/TABLES}
-
-Creates the list of contents. Do not modify.
-
-\subsection{THESIS MAIN TEXT}
-
-Structures the style for the main text chapters and builds them. 
-
-\subsection{BIBLIOGRAPHY}
-
-Builds the bibliography. The style of the bibliography can be defined in \texttt{Preamble/mydefinitions.tex}.
-
-\subsection{APPENDICES}
-
-Structures the style for the appendices and builds them. The appendices are numbered with letters but are structured like regular chapters.
-
-

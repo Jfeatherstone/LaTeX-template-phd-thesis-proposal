@@ -1,12 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% OIST Doctoral Thesis - Final bound version
+% OIST Thesis Proposal
 % LaTeX Template
-% Version 0.2 (2016/04/06)
+% Version 0.3 (2025/08/26)
 %
 % This version is the final binding version which will be published.
 %
-% Original author:
+% Authors:
 % Jeremie Gillet
+% Jack Featherstone
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -14,8 +15,11 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[12pt, twoside]{book} % 12 pt font, two-sided book style
-\usepackage[a4paper, includehead, headheight=0.6cm, inner=3cm ,outer=2.5cm, top=2.5 cm, bottom=2.5cm]{geometry}  % Changing size of document
+% 12 pt font for main body text, and a one-sided book style (so margins
+% don't alternate every other page) 
+\documentclass[12pt, oneside]{book}
+% A4 paper size, left margin is 3cm, all others are 2.5cm
+\usepackage[a4paper, includehead, headheight=0.6cm, left=3cm, right=2.5cm, top=2.5 cm, bottom=2.5cm]{geometry}  % Changing size of document
 \usepackage[english]{babel} % The document is in English
 \usepackage[utf8]{inputenc} % UTF8 encoding
 \usepackage[T1]{fontenc} % Font encoding
@@ -24,20 +28,18 @@
 \graphicspath{{./Images/}} % Specifies the directory where pictures are stored
 
 \usepackage{longtable} % tables that can span several pages
-\usepackage[bf]{caption} % caption: FIG in bold
+\usepackage[bf, font=footnotesize]{caption} % caption: FIG in bold and 10pt (footnotesize) captions
 \usepackage{fancyhdr} % For the headers
 \usepackage[onehalfspacing]{setspace} % For 1.5 spacing
 
 \newcommand{\numberedchapter}{ % Preparation for numbered chapters
 	\cleardoublepage % To make sure the previous headers are passed
-	\fancyhead[RE]{{\bfseries \leftmark}}% Headers for left pages
-	\fancyhead[LO]{{\bfseries \rightmark}}}% Headers for right pages
+}
 \newcommand{\unnumberedchapter}[1]{ % Preparation for unnumbered chapters
 	\cleardoublepage % To make sure the previous headers are passed
 	\phantomsection % To make sure the table of content links to the right page
 	\addcontentsline{toc}{chapter}{#1} % Also adds the chapter name to the Contents
-	\fancyhead[RE]{{\bfseries #1}} % Headers for left pages
-	\fancyhead[LO]{}}%Headers for right pages
+}
 
 \usepackage{emptypage} % No headers on an empty page
 
@@ -51,7 +53,17 @@
 \vfill
 }}}
 
-\usepackage{hyperref} % Adds clickable links at references
+% Clickable links for references, but don't put a box around them.
+\usepackage[hidelinks]{hyperref}
+
+% If you want to add colors to links (not boxes, but the link text itself)
+% you can uncomment these lines.
+%\hypersetup{
+%    colorlinks   = true, % Color links instead of boxes
+%    urlcolor     = {blue!50!black}, % Dark blue color for external hyperlinks
+%    linkcolor    = {blue!50!black}, % Dark blue color for internal links
+%    citecolor    = {red!50!black} % Dark red color for citations
+%}
 
 %----------------------------------------------------------------------------------------
 %	ADD YOUR CUSTOM VALUES, COMMANDS AND PACKAGES
@@ -94,11 +106,14 @@
 %	PREAMBLE PAGES (comment out unnecessary pages)
 %----------------------------------------------------------------------------------------
 
+% Header and footer settings
+
 \pagestyle{fancy} % Changes the headers
 \renewcommand{\chaptermark}[1]{ \markboth{#1}{}} % Getting the chapter name right
 \renewcommand{\sectionmark}[1]{\markright{\thesection\; #1}} % Getting the section name right
 \fancyhf{}% Clears header and footer
-\fancyhead[RO,LE]{\thepage} % page number on the outside of headers
+\fancyhead[R]{\thepage} % page number on the right
+\fancyhead[L]{{\bfseries \rightmark}} % Current section on the left
 
 \input{Preamble/abstract}
 
@@ -106,7 +121,9 @@
 %	LIST OF CONTENTS/FIGURES/TABLES
 %----------------------------------------------------------------------------------------
 
-\unnumberedchapter{Contents}
+% Should be called "Table of Contents" not "Contents"
+\renewcommand{\contentsname}{Table of Contents}
+\unnumberedchapter{Table of Contents}
 \tableofcontents % Write out the Table of Contents
 
 %----------------------------------------------------------------------------------------
