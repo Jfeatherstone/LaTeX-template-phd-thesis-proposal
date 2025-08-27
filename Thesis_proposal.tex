@@ -1,9 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% OIST Thesis Proposal
+% OIST Thesis (Proposal)
 % LaTeX Template
 % Version 0.3 (2025/08/26)
 %
-% This version is the final binding version which will be published.
+% This version covers the thesis proposal, the electronic thesis, and the
+% printed and bound thesis. For information on how to choose these, see
+% the guide in the default chapters, which can also be found in the
+% Github repository:
+% https://github.com/oist/LaTeX-template-phd-thesis
 %
 % Authors:
 % Jeremie Gillet
@@ -12,14 +16,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %----------------------------------------------------------------------------------------
+%	BINDING STYLE (pick the style you want)
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{etoolbox}
+\newtoggle{bind}
+
+% The thesis proposal and early drafts of the thesis are not going
+% to be printed as a book, so you want a "one-sided" page style with even margins.
+% To set defaults for this, use the following line.
+\togglefalse{bind}
+
+% But for the final draft of the thesis, you probably want to print a copy
+% and bind it, so you need alternating headers/footers on pages, different
+% margins, etc. To set defaults for this, use the following line.
+%\toggletrue{bind}
+
+%----------------------------------------------------------------------------------------
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-% 12 pt font for main body text, and a one-sided book style (so margins
-% don't alternate every other page) 
-\documentclass[12pt, oneside]{book}
-% A4 paper size, left margin is 3cm, all others are 2.5cm
-\usepackage[a4paper, includehead, headheight=0.6cm, left=3cm, right=2.5cm, top=2.5 cm, bottom=2.5cm]{geometry}  % Changing size of document
+% Choose either a two-sided or one-sided book, depending on the value of
+% `bind`.
+\iftoggle{bind}{
+    % 12 pt font for main body text, and a two-sided book style (so margins
+    % alternate on even and off pages) 
+    \documentclass[12pt, twoside]{book}
+    % A4 paper size, inner margin is 3cm, all others are 2.5cm
+    \usepackage[a4paper, includehead, headheight=0.6cm, inner=3cm, outer=2.5cm, top=2.5 cm, bottom=2.5cm]{geometry}  % Changing size of document
+
+}{ % Else
+    % 12 pt font for main body text, and a one-sided book style (so margins
+    % don't alternate every other page) 
+    \documentclass[12pt, oneside]{book}
+    % A4 paper size, left margin is 3cm, all others are 2.5cm
+    \usepackage[a4paper, includehead, headheight=0.6cm, left=3cm, right=2.5cm, top=2.5 cm, bottom=2.5cm]{geometry}  % Changing size of document
+
+}
+
 \usepackage[english]{babel} % The document is in English
 \usepackage[utf8]{inputenc} % UTF8 encoding
 \usepackage[T1]{fontenc} % Font encoding
@@ -30,17 +64,73 @@
 \usepackage{longtable} % tables that can span several pages
 \usepackage[bf, font=footnotesize]{caption} % caption: FIG in bold and 10pt (footnotesize) captions
 \usepackage{fancyhdr} % For the headers
-\usepackage[onehalfspacing]{setspace} % For 1.5 spacing
+% This is imported below so we can have a conditional that controls
+% single or 1.5
+%\usepackage[onehalfspacing]{setspace} % For 1.5 spacing
 
-\newcommand{\numberedchapter}{ % Preparation for numbered chapters
-	\cleardoublepage % To make sure the previous headers are passed
-}
-\newcommand{\unnumberedchapter}[1]{ % Preparation for unnumbered chapters
-	\cleardoublepage % To make sure the previous headers are passed
-	\phantomsection % To make sure the table of content links to the right page
-	\addcontentsline{toc}{chapter}{#1} % Also adds the chapter name to the Contents
+%----------------------------------------------------------------------------------------
+%	HEADERS AND FOOTERS
+%----------------------------------------------------------------------------------------
+% Our header and footer setup is different depending on whether we are
+% looking to bind our final result or not.
+
+\iftoggle{bind}{
+    \newcommand{\numberedchapter}{ % Preparation for numbered chapters
+        \cleardoublepage % To make sure the previous headers are passed
+
+        % For binding, we have the page number on the outside
+        \fancyhead[RO,LE]{\thepage}
+
+        % The chapter on the even page right side, and the section on
+        % the odd page left side.
+        \fancyhead[RE]{{\bfseries \leftmark}}
+        \fancyhead[LO]{{\bfseries \rightmark}}
+    }
+
+    \newcommand{\unnumberedchapter}[1]{ % Preparation for unnumbered chapters 
+        \cleardoublepage % To make sure the previous headers are passed
+        \phantomsection % To make sure the table of content links to the right page
+        \addcontentsline{toc}{chapter}{#1} % Also adds the chapter name to the Contents
+
+        % For unnumbered chapters, we have the page number the same as
+        % for numbered ones, on the outside
+        \fancyhead[RO,LE]{\thepage}
+    
+        % Though we have to manually set the section name because it is
+        % unnumbered
+        \fancyhead[RE]{{\bfseries #1}} % Headers for left pages
+        \fancyhead[LO]{} % Headers for right pages
+    }
+
+}{ % Else
+    \newcommand{\numberedchapter}{ % Preparation for numbered chapters
+            \cleardoublepage % To make sure the previous headers are passed
+
+            % For non-binding, we have the page number always on the right
+            \fancyhead[R]{\thepage}
+            % And current section on the left
+            \fancyhead[L]{{\bfseries \rightmark}}
+    }
+
+    \newcommand{\unnumberedchapter}[1]{ % Preparation for unnumbered chapters
+            \cleardoublepage % To make sure the previous headers are passed
+            \phantomsection % To make sure the table of content links to the right page
+            \addcontentsline{toc}{chapter}{#1} % Also adds the chapter name to the Contents
+            % For non-binding, we have the page number always on the right
+            \fancyhead[R]{\thepage}
+            % And current section on the left
+            \fancyhead[L]{{\bfseries \rightmark}}
+    }
 }
 
+% Note that there is another section below that sets the header behavior
+% for the regular pages; we can't set it here because we first need
+% the preamble to have no header.
+
+
+%----------------------------------------------------------------------------------------
+%	BACKGROUND PICTURE ON TITLE PAGE
+%----------------------------------------------------------------------------------------
 \usepackage{emptypage} % No headers on an empty page
 
 \usepackage{eso-pic} % For the background picture on the title page
@@ -52,6 +142,10 @@
 \includegraphics[width=\paperwidth]{symbol.jpg}%
 \vfill
 }}}
+
+%----------------------------------------------------------------------------------------
+%	LINKS
+%----------------------------------------------------------------------------------------
 
 % Clickable links for references, but don't put a box around them.
 \usepackage[hidelinks]{hyperref}
@@ -66,19 +160,36 @@
 %}
 
 %----------------------------------------------------------------------------------------
-%	ADD YOUR CUSTOM VALUES, COMMANDS AND PACKAGES
+%	IMPORT FROM mydefinitions.tex
 %----------------------------------------------------------------------------------------
 
-% Open Preamble/mydefinitions.tex and enter some values (name, thesis title...) 
-% and include your own custom LaTeX functions and packages
+% First we setup the various conditionals and their defaults that can be
+% adjusted in mydefinitions
 
+% Whether the document is a thesis or thesis proposal
+\newtoggle{isthesis}
+\togglefalse{isthesis}
+
+% Whether to use single or 1.5 spacing
+\newtoggle{singlespacing}
+\togglefalse{singlespacing}
+
+% This includes your name, supervisors, title, etc.
 \input{Preamble/mydefinitions}
 
-\begin{document}
+
+\iftoggle{singlespacing}{
+
+    \usepackage[singlespacing]{setspace} % For 1 spacing
+}{ % Else
+
+    \usepackage[onehalfspacing]{setspace} % For 1.5 spacing
+}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
+\begin{document}
 
 \pagestyle{empty} % No page numbers
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the preamble pages
@@ -88,7 +199,13 @@
 \begin{center}
 \vfill
 {\large \scshape Okinawa Institute of Science and Technology\\Graduate University}\\[1.4cm]
-{\Large PhD Thesis Proposal}\\[0.5cm]
+\iftoggle{isthesis}{
+    \vspace{-0.8cm}
+    {\large Thesis submitted for the degree}\\[0.5cm]
+    {\Large Doctor of Philosophy}\\[0.5cm]
+}{ % Else
+    {\Large PhD Thesis Proposal}\\[0.5cm]
+}
 \rule{\textwidth}{1.5pt}\\[0cm]
 {\huge \bfseries \thesistitle \par \ }\\[-0.5cm]
 \rule{\textwidth}{1.5pt}\\[2.5cm]
@@ -112,8 +229,6 @@
 \renewcommand{\chaptermark}[1]{ \markboth{#1}{}} % Getting the chapter name right
 \renewcommand{\sectionmark}[1]{\markright{\thesection\; #1}} % Getting the section name right
 \fancyhf{}% Clears header and footer
-\fancyhead[R]{\thepage} % page number on the right
-\fancyhead[L]{{\bfseries \rightmark}} % Current section on the left
 
 \input{Preamble/abstract}
 
@@ -126,13 +241,22 @@
 \unnumberedchapter{Table of Contents}
 \tableofcontents % Write out the Table of Contents
 
+% Make the list of tables and figures if this is a thesis
+\iftoggle{isthesis}{
+
+    \unnumberedchapter{List of Figures}
+    \listoffigures
+
+    \unnumberedchapter{List of Tables}
+    \listoftables
+}
+
 %----------------------------------------------------------------------------------------
 %	THESIS MAIN TEXT - CHAPTERS
 %----------------------------------------------------------------------------------------
 
 \addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
 \mainmatter % Begin numeric (1,2,3...) page numbering
-\doublespacing % Double spacing
 
 \numberedchapter
 \input{MainText/chapter1} % Import your chapters here
