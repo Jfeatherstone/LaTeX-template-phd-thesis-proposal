@@ -30,6 +30,11 @@ which can be found in the file \texttt{Preamble/mydefinitions.tex}. This include
 your name, the name of supervisor (and co-supervisor, if applicable) your title, 
 and the date.
 
+There are several toggle options available in this file, allowing you to
+switch between thesis and thesis proposal formatting, as well as between
+1.5 spacing (for thesis proposal and drafts of the thesis) and single
+spacing (for the final thesis).
+
 This file also contains the bibliography settings, custom packages, and any custom
 commands that you many want to use. The default bibliography style is defined in
 \texttt{Preamble/physics\_bibstyle.bst}, which was created by Jeremie Gillet in 2011
@@ -59,9 +64,9 @@ the \texttt{MainText} folder, for example:
 \hspace*{0.5cm}|--- chapter3.tex\\
 }
 If you'd like to rename or add new files, make sure to change where they are
-referenced in \texttt{Thesis\_proposal.tex} (around line 125). If you wanted
-to add an appendix, you would create a new file in \texttt{MainText/}, though
-add them to \texttt{Thesis\_proposal.tex} around line 150 instead.
+referenced in \texttt{Thesis\_proposal.tex} around line 260. If you want
+to add an appendix, you can create a new file in \texttt{MainText/}, though
+add them to \texttt{Thesis\_proposal.tex} around line 280 instead.
 Your thesis may have several other chapters here, for example, Conclusions.
 
 \section{The \texttt{Images} Folder}
@@ -79,9 +84,20 @@ files in the \texttt{Preamble} and \texttt{MainText} folders. To generate your
 document, this is the file you should compile. Compile once with \LaTeX,
 once with BibTeX and finally twice more with \LaTeX\ to get all the references right.
 
-You probably won't need to edit this file very much, but in case you are
-looking for a specific setting or something, the following settings are
-defined in this file:
+There is one document option at the top of this file that you should make
+sure is correct, which controls whether to format the document for printing
+or as a digital version. The printed version needs to have a ``two-sided''
+style where the margins alternate on even and odd pages, whereas a digital
+version should have a ``one-sided'' style with consistent formatting on every
+page. Except for the final printed version, the formatting requirements
+require that you use the ``one-sided'' version (which is the default option).
+
+As mentioned in the section about the \texttt{MainText} folder, you may also
+need to edit this file to add extra sections or appendices.
+
+You probably won't need to edit this file very much otherwise, but in case
+you are looking for a specific setting or something, the following settings
+are defined in this file:
 \begin{itemize}
     \item Basic packages
     \item Loading of in custom values from \texttt{Preamble/mydefinitions.tex}
@@ -92,3 +108,47 @@ defined in this file:
     \item Bibliography file (not style)
     \item Appendices
 \end{itemize}
+
+\section{Converting to a Thesis}
+
+Once you've finished your thesis proposal (congratulations!) you may want
+to use your proposal as a starting point for your doctoral thesis. As
+mentioned above, the formatting requirements for both of these documents
+are very similar, and the only actual difference between the files you need
+is a few additions to the \texttt{MainText} and \texttt{Preamble} folders.
+
+Formatting-wise, all you need to do to switch to a thesis is edit the
+conditional statement \texttt{isthesis} in \texttt{Preamble/mydefinitions.tex}.
+This will automatically change the title page and add lists of figures
+and tables.
+
+Next, you need to add the following files to each respective folder:
+\\
+\texttt{
+|--- MainText/ \\ 
+\hspace*{0.5cm}|--- introduction.tex\\
+\hspace*{0.5cm}|--- conclusion.tex\\
+\hspace*{0.5cm}|--- publications.tex\\
+\hspace*{0.5cm}|--- ...\\
+|--- Preamble/ \\ 
+\hspace*{0.5cm}|--- abbreviations.tex\\
+\hspace*{0.5cm}|--- acknowledgments.tex\\
+\hspace*{0.5cm}|--- coauthorship.tex\\
+\hspace*{0.5cm}|--- declaration.tex\\
+\hspace*{0.5cm}|--- dedication.tex\\
+\hspace*{0.5cm}|--- glossary.tex\\
+\hspace*{0.5cm}|--- nomenclature.tex\\
+\hspace*{0.5cm}|--- ...\\
+}
+
+These can be found in the thesis template repository:
+\url{https://github.com/oist/LaTeX-template-phd-thesis}
+
+These files should then be included in the main document by adding them
+to \texttt{Thesis\_proposal.tex} (which you can rename to \texttt{Thesis.tex}
+if you'd like) as described in the section above. Follow the directions
+in each individual file and you're done with the conversion!
+
+Alternatively, you can download a whole new copy of the files from the
+repository above and copy over your \texttt{MainText} and \texttt{Preamble}
+folders to the new project.
