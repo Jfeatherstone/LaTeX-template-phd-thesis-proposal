@@ -4,6 +4,9 @@ This is an unofficial template for the OIST Thesis Proposal, based on the
 version created by Jeremie Gillet. As of August 2025 and to the best of my
 knowledge, this is the only up-to-date version of this template.
 
+Be sure to read through the default PDF for instructions on how to use
+this template effectively.
+
 You will find the most recent version of the guidelines for the thesis proposal
 in Section 5 of the [Graduate School Policies](https://www.oist.jp/education/policies-regulations/gs-policies).
 
