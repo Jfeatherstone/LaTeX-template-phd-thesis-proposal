@@ -17,37 +17,64 @@
 \caption*{This secret image won't be numbered and won't appear in the List of Figures because of the *}
 \end{figure}
 
-Refer to figure like this: Figure~\ref{fig-example} or this (Fig.~\ref{fig-example}). If you want to include a list of figure, you can use a short version of the caption as shown in Figure~\ref{fig-example}.
+Refer to figure like this: Figure~\ref{fig-example} or this (Fig.~\ref{fig-example}). The thesis proposal should not include
+a list of figures (or tables); to enable this for the thesis, for which it is
+required, you should toggle the setting \texttt{\textbackslash toggletrue\{isthesis\}}
+in the file \texttt{Preamble/mydefinitions.tex}. In this case, the short version of the caption,
+as shown in Figure~\ref{fig-example}, will be used in the list.
 
 
 \section{Tables}
 
-\begin{table} 
-\center
-\caption{Short heading for the List of Tables.}
+
+Refer to tables list this: Table~\ref{tab-values}. To make a table that
+can split across multiple pages, use the \texttt{longtable} environment:
+\url{https://texdoc.org/serve/longtable.pdf/0}
+
+Tables that span multiple pages should have the heading repeated on each
+new page.
+
+The font size for all tables has been set to match the formatting requirements
+(10pt font); this applies to both \texttt{longtable} and \texttt{table}.
+
+\begin{longtable}[c]{ c | c c }
+    \caption{Short caption heading.\label{tab-values}}\\
+
+    \hline
+    Parameter & Centroid model & Centered instance model\\
+    \hline
+    \endfirsthead
+
+    Architecture & U-net & U-net \\
+    Max Stride & 16 & 16 \\
+    Filters & 16 & 24 \\
+    Filters Rate & 2.0 & 1.5 \\
+    Input Scaling & 1.0 & 1.0 \\
+    Crop Size & N/A & 64 \\
+
+    \hline
+    \multicolumn{3}{c}{Training Augmentation} \\
+    \hline
+
+    Rotation & [-180, 180] &  [-180, 180] \\
+    Scale & [0.95, 1.05] &  [0.95, 1.05] \\
+    Contrast & [0.80, 1.40] &  [0.80, 1.40] \\
+    Brightness & [0.0, 10.0] &  [0.0, 10.0] \\
+
+    \caption*{Full caption here for longtable if desired.}
+
+\end{longtable}
+
+\begin{table}
 \begin{tabular}{c|c}
-Parameter & Value \\ \hline \hline
-$\Delta$ & 0, 150 \\
-${\alpha}$ & 85 \\
-${\epsilon}$ & 6 \\
-${\kappa}$ & 6.8 \\
-${\gamma}$ & 0.2
+    Parameter & Value \\ \hline \hline
+
+    $\Delta$ & 0, 150 \\
+    ${\alpha}$ & 85 \\
+    ${\epsilon}$ & 6 \\
+    ${\kappa}$ & 6.8 \\
+    ${\gamma}$ & 0.2
+
+    \caption*{Unnumbered table; full caption for regular table here.}
 \end{tabular}
-\label{tab-values}
-\caption*{Full caption with all the details here.}
 \end{table}
-
-\begin{table} \center
-\begin{tabular}{c|c}
-Parameter & Value \\ \hline \hline
-$\Delta$ & 0, 1500 \\
-${\alpha}$ & 850 \\
-${\epsilon}$ & 60 \\
-${\kappa}$ & 68 \\
-${\gamma}$ & 2
-\end{tabular}
-\caption*{This secret table won't be numbered and won't appear in the List of Figures because of the * }
-\end{table}
-
-
-Refer to tables this this: Table~\ref{tab-values}.

@@ -186,6 +186,14 @@
     \usepackage[onehalfspacing]{setspace} % For 1.5 spacing
 }
 
+% We also need to change the font size for tables to 10pt, so we
+% define a wrapper environment
+%\newenvironment{longtablesmall}{\begin{center}\footnotesize\begin{longtable}}{\end{longtable} \end{center}}
+
+\usepackage{floatrow}
+\DeclareFloatFont{footnotesize}{\footnotesize}% "scriptsize" is defined by floatrow, "tiny" not
+\floatsetup[table]{font=footnotesize}
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
