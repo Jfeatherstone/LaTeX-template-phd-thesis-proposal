@@ -19,7 +19,7 @@ me or raise an Issue on Github if this template needs to be updated in any way.
 
 ## Usage
 
-[Click here to start an Overleaf project using this template.](https://www.overleaf.com/docs?snip_uri=https://github.com/Jfeatherstone/LaTeX-template-phd-thesis-proposal/releases/download/v0.3/LaTeX-template-phd-thesis-proposal_v0.3.zip)
+[Click here to start an Overleaf project using this template.](https://www.overleaf.com/docs?snip_uri=https://github.com/Jfeatherstone/LaTeX-template-phd-thesis-proposal/releases/download/v0.4/LaTeX-template-phd-thesis-proposal_v0.4.zip)
 
 If you use LaTeX locally, you can just download the [latest release files](https://github.com/Jfeatherstone/LaTeX-template-phd-thesis-proposal/releases)
 and start your project. You might need to install some packages or fonts,
