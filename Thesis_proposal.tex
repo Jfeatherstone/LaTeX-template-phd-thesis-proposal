@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % OIST Thesis (Proposal)
 % LaTeX Template
-% Version 0.3 (2025/08/26)
+% Version 0.4 (2025/09/30)
 %
 % This version covers the thesis proposal, the electronic thesis, and the
 % printed and bound thesis. For information on how to choose these, see
@@ -58,11 +58,17 @@
 \usepackage[utf8]{inputenc} % UTF8 encoding
 \usepackage[T1]{fontenc} % Font encoding
 
+% Set the font to times new roman for main body text
+\usepackage{times}
+
 \usepackage{graphicx} % For including images
 \graphicspath{{./Images/}} % Specifies the directory where pictures are stored
 
 \usepackage{longtable} % tables that can span several pages
-\usepackage[bf, font=footnotesize]{caption} % caption: FIG in bold and 10pt (footnotesize) captions
+% Make captions 10pt (footnotesize) and sans font (equivalent to helvetica) and put the label
+% (eg. "Figure X") in bold.
+\usepackage[font={sf, footnotesize}, labelfont={sf, bf}]{caption}
+
 \usepackage{fancyhdr} % For the headers
 % This is imported below so we can have a conditional that controls
 % single or 1.5
@@ -198,6 +204,10 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 \begin{document}
+
+% This is required to stop certain words from bleeding into the
+% margins.
+\emergencystretch 4em
 
 \pagestyle{empty} % No page numbers
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the preamble pages
