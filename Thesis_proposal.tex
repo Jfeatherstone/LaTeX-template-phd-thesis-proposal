@@ -66,8 +66,8 @@
 
 \usepackage{longtable} % tables that can span several pages
 % Make captions 10pt (footnotesize) and sans font (equivalent to helvetica) and put the label
-% (eg. "Figure X") in bold.
-\usepackage[font={sf, footnotesize}, labelfont={sf, bf}]{caption}
+% (eg. "Figure X") in bold and set text spacing to 1.5 (stretch=1.5).
+\usepackage[font={sf, footnotesize, stretch=1.5}, labelfont={sf, bf}]{caption}
 
 \usepackage{fancyhdr} % For the headers
 % This is imported below so we can have a conditional that controls
@@ -80,6 +80,10 @@
 % Our header and footer setup is different depending on whether we are
 % looking to bind our final result or not.
 
+% Also the GS team has *specifically* requested that the running titles
+% shown in the header of pages should not be full capitals (TABLE OF CONTENTS)
+% because clearly that takes away from the readability.
+% This is fixed with the nouppercase statement
 \iftoggle{bind}{
     \newcommand{\numberedchapter}{ % Preparation for numbered chapters
         \cleardoublepage % To make sure the previous headers are passed
@@ -89,8 +93,8 @@
 
         % The chapter on the even page right side, and the section on
         % the odd page left side.
-        \fancyhead[RE]{{\bfseries \leftmark}}
-        \fancyhead[LO]{{\bfseries \rightmark}}
+        \fancyhead[RE]{{\nouppercase{\bfseries \leftmark}}}
+        \fancyhead[LO]{{\nouppercase{\bfseries \rightmark}}}
     }
 
     \newcommand{\unnumberedchapter}[1]{ % Preparation for unnumbered chapters 
@@ -104,7 +108,7 @@
     
         % Though we have to manually set the section name because it is
         % unnumbered
-        \fancyhead[RE]{{\bfseries #1}} % Headers for left pages
+        \fancyhead[RE]{{\nouppercase{\bfseries #1}}} % Headers for left pages
         \fancyhead[LO]{} % Headers for right pages
     }
 
@@ -115,7 +119,7 @@
             % For non-binding, we have the page number always on the right
             \fancyhead[R]{\thepage}
             % And current section on the left
-            \fancyhead[L]{{\bfseries \rightmark}}
+            \fancyhead[L]{{\nouppercase{\bfseries \rightmark}}}
     }
 
     \newcommand{\unnumberedchapter}[1]{ % Preparation for unnumbered chapters
@@ -125,7 +129,7 @@
             % For non-binding, we have the page number always on the right
             \fancyhead[R]{\thepage}
             % And current section on the left
-            \fancyhead[L]{{\bfseries \rightmark}}
+            \fancyhead[L]{{\nouppercase{\bfseries \rightmark}}}
     }
 }
 
